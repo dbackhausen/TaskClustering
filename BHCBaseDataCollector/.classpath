@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-logging-adapters-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/fluent-hc-4.2.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/httpclient-4.2.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/httpclient-cache-4.2.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/httpcore-4.2.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/httpmime-4.2.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/ini4j-0.5.2.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/jsonic-1.3.0.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/langdetect.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/nekohtml-1.9.13.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/tika-app-1.2.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/xerces-2.9.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BHCCommon"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
