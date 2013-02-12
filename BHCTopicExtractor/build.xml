@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="BHCTopicExtractor">
+    <property environment="env"/>
+    <property name="ThirdPartyLibs.location" value="../ThirdPartyLibs"/>
+    <property name="BHCCommon.location" value="../BHCCommon"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="BHCCommon.classpath">
+        <pathelement location="${BHCCommon.location}/bin"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-lang3-3.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/ini4j-0.5.2.jar"/>
+    </path>
+    <path id="BHCTopicExtractor.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-io-1.4.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-lang3-3.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-logging.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/icu4j_3_4.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/ini4j-0.5.2-jdk14.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/ini4j-0.5.2.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/iri.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/jena.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/Maui-1.2.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/maxent-2.4.0.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/mysql-connector-java-3.1.13-bin.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/opennlp-tools-1.3.0.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/snowball.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/trove.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/weka.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/wikipediaminer1.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/xercesImpl.jar"/>
+        <path refid="BHCCommon.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${BHCCommon.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${BHCCommon.location}" inheritAll="false" target="build-project"/>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="BHCTopicExtractor.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+</project>

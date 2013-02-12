@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project name="BrowserHistoryClustering">
+	<java  fork="true" dir="BHCBaseDataCollector" classname="de.fernuni.browserhistoryclustering.basedatacollector.Main">
+         <classpath>                      
+		   <pathelement location="BHCBaseDataCollector/bin"/>
+		   <pathelement location="ThirdPartyLibs/lib/*"/>
+		   <pathelement path="BHCCommon/bin/"/>
+         </classpath>
+	</java>
+
+</project>

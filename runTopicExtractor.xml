@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project name="BrowserHistoryClustering">	
+	<java  fork="true" dir="BHCTopicExtractor" classname="de.fernuni.browserhistoryclustering.topicextractor.Main">
+         <classpath>                      
+		   <pathelement location="BHCTopicExtractor/bin"/>
+		   <pathelement location="ThirdPartyLibs/lib/*"/>
+		   <pathelement path="BHCCommon/bin/"/>
+         </classpath>
+	</java>	
+</project>

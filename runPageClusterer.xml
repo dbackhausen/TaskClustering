@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project name="BrowserHistoryClustering">
+	<java  fork="true" dir="BHCPageClusterer" classname="de.fernuni.browserhistoryclustering.pageclusterer.Main">
+         <classpath>                      
+		   <pathelement location="BHCPageClusterer/bin"/>
+		   <pathelement location="ThirdPartyLibs/lib/*"/>
+		   <pathelement path="BHCCommon/bin/"/>
+         </classpath>
+	</java>
+</project>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project name="BrowserHistoryClustering">
+    <!--<ant antfile="runBaseDataCollector.xml" /> -->
+    <ant antfile="runTopicExtractor.xml" /> 
+    <ant antfile="runPageClusterer.xml" /> 
+</project>

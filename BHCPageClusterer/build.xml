@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="BHCPageClusterer">
+    <property environment="env"/>
+    <property name="ThirdPartyLibs.location" value="../ThirdPartyLibs"/>
+    <property name="BHCCommon.location" value="../BHCCommon"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="BHCCommon.classpath">
+        <pathelement location="${BHCCommon.location}/bin"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-lang3-3.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/ini4j-0.5.2.jar"/>
+    </path>
+    <path id="BHCPageClusterer.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/com.discoversites.javatree-1.0.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-cli-2.0-mahout.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-collections-3.2.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-io-2.0.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/guava-13.0.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/hadoop-0.20.2-core.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/log4j-1.2.16.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/lucene-analyzers-3.6.0.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/lucene-core-3.6.0.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/mahout-core-0.7.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/mahout-integration-0.7.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/mahout-math-0.7.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/slf4j-api-1.6.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/slf4j-jcl-1.6.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/slf4j-log4j12-1.6.1.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/uncommons-maths-1.2.2.jar"/>
+        <path refid="BHCCommon.classpath"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-cli-1.2.jar"/>
+        <pathelement location="${ThirdPartyLibs.location}/lib/commons-httpclient-3.0.1.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall">
+        <ant antfile="build.xml" dir="${BHCCommon.location}" inheritAll="false" target="clean"/>
+    </target>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects">
+        <ant antfile="build.xml" dir="${BHCCommon.location}" inheritAll="false" target="build-project"/>
+    </target>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="BHCPageClusterer.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+</project>

@@ -1,4 +1,4 @@
-package de.fernuni.webpageclustering.utils;
+package de.fernuni.browserhistoryclustering.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
