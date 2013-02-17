@@ -13,7 +13,7 @@ import com.discoversites.util.collections.tree.TreeNode;
 
 
 @XmlRootElement
-@XmlType(name="Test")
+@XmlType(name="")
 @XmlSeeAlso(ClusterDescriptor.class)
 public class SetTree<T> extends com.discoversites.util.collections.tree.set.SetTree<T> {
 

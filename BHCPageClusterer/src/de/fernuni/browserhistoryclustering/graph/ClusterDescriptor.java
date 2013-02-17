@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import org.apache.hadoop.fs.Path;
 
@@ -21,7 +22,9 @@ import com.discoversites.util.collections.tree.TreeNode;
 import de.fernuni.browserhistoryclustering.common.utils.CollectionUtils;
 import de.fernuni.browserhistoryclustering.common.utils.Stringutils;
 import de.fernuni.browserhistoryclustering.exception.ClusterDescriptorException;
+import de.fernuni.browserhistoryclustering.pageclusterer.clustering.QueryClusterer;
 
+@XmlType(propOrder={"clusterId", "label", "documentCount", "tasks", "queries", "childElements"})
 public class ClusterDescriptor implements TreeAware {
 
 	TreeNode<?> m_TreeNode;
@@ -42,8 +45,21 @@ public class ClusterDescriptor implements TreeAware {
 	private List<String> m_FilteredNormtopics;
 	private int s_NumTopicsInLabel = 5;
 	private String m_ClusterId;
+	
+	@XmlElement(name="Document Count")	
+	public int getDocumentCount()
+	{
+		return getDocuments().size();	   		
+	}
+	
+	@XmlElement(name="Task")
+	@XmlElementWrapper(name="Tasks")
+	public Collection<String> getTasks()
+	{
+		return QueryClusterer.clusterQueries(getQueries());	   		
+	}
 		
-	@XmlElement
+	@XmlElement(name="Child Element")
 	public Collection<ClusterDescriptor> getChildElements()
 	{
 		Collection<ClusterDescriptor> v_ChildElements = new HashSet<ClusterDescriptor>();
@@ -451,7 +467,7 @@ public class ClusterDescriptor implements TreeAware {
 		return m_TreeNode;
 	}
 
-	@XmlElement
+	@XmlElement(name="Label")
 	public String getLabel() {
 		if (m_Label == null) {
 			m_Label = "";

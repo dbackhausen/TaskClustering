@@ -150,28 +150,11 @@ public class Util{
 				}
 			}
 			
-			
 			ClusterDescriptor v_Element = child.getElement();
-			List<String> v_Topics = v_Element.getFilteredNormtopics();
-			int j = 0;
-			StringBuilder v_TopicConcat = new StringBuilder();
-			for (String v_Topic : v_Topics)
-			{
-				if (j > 0 )
-				{
-					v_TopicConcat.append(" | ");
-				}
-				
-				v_TopicConcat.append(v_Topic);
-				
-				if (j > 2) break;
-				j++;
-				
-			}
 			
 			List<String> v_Files = v_Element.getDocuments();
 			
-			ps.println("- " + v_Element.getLabel() + " *** #docs: " + v_Files.size() + " *** Topics: " + v_TopicConcat + " *** Queries: " + Stringutils.concatStrings(v_Element.getQueries(), "/"));
+			ps.println("#Docs: " + v_Element.getDocuments().size() + " *** Label (Topics): " + v_Element.getLabel()  +  " *** Queries: " + Stringutils.concatStrings(v_Element.getQueries(), " / ") + " *** Taks: " + Stringutils.concatStrings(v_Element.getTasks(), " / "));
 			
 			printChildrenFiltered(child, level + 1, ps);
 		}		

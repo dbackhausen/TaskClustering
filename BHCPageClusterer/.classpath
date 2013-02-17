@@ -22,5 +22,11 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/BHCCommon"/>
 	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-cli-1.2.jar"/>
 	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/carrot2-core-3.6.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/attributes-binder-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/jackson-core-asl-1.7.4.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/jackson-mapper-asl-1.7.4.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyLibs/lib/hppc-0.4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
