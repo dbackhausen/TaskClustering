@@ -11,6 +11,13 @@ import de.fernuni.browserhistoryclustering.common.utils.CollectionUtils;
 import de.fernuni.browserhistoryclustering.exception.EvaluationException;
 import de.fernuni.browserhistoryclustering.graph.ClusterDescriptor;
 
+
+/**
+ * @author ah
+ * 
+ * Class for calculating precision value of a cluster.
+ * 
+ */
 public class Precision {
 
    ClassMapper m_ClassMapper;
@@ -19,10 +26,23 @@ public class Precision {
    private Precision() {
    }
 
+   /**
+    * @param p_ClassMapper
+    */
    public Precision(ClassMapper p_ClassMapper) {
       m_ClassMapper = p_ClassMapper;
    }
 
+   /**
+    * Calculates precision value of a cluster,
+    * based on a list of files representing
+    * the document collection.
+    * 
+    * @param p_Files Filenames of all documents in the collection
+    * @param p_ClusterDescriptor
+    * @return Precision value
+    * @throws EvaluationException
+    */
    public double calculate(List<String> p_Files, ClusterDescriptor p_ClusterDescriptor) throws EvaluationException {
 
       Map<String, Integer> v_Class2OccCollection = getClassOccurrences(p_Files);

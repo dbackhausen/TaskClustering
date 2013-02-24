@@ -88,7 +88,7 @@ public class Extractor {
       int loopCtr = 0;
       for (Instance v_Keyphrase : v_Keyphrases) {
          Double v_Value = 1d * (v_Keyphrases.size() - loopCtr);
-         v_Value = Math.pow(v_Value, 1.3);
+         v_Value = 1d;         
 
          String v_TopicNormalized = v_Keyphrase.stringValue(0);
 
@@ -104,6 +104,8 @@ public class Extractor {
             v_Topic2ValueMap.put(v_TopicNormalized, v_Value);
          }
          loopCtr++;
+         
+         if (loopCtr > 1) break;
       }
 
       v_Topic2ValueMap = CollectionUtils.sortByValue(v_Topic2ValueMap);

@@ -6,6 +6,10 @@ import java.util.List;
 import de.fernuni.browserhistoryclustering.common.utils.Stringutils;
 import de.fernuni.browserhistoryclustering.exception.EvaluationException;
 
+/**
+ * @author ah
+ *
+ */
 public class DefaultClassMapper implements ClassMapper {
 
    @Override

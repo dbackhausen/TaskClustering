@@ -8,24 +8,25 @@ import de.fernuni.browserhistoryclustering.graph.ClusterDescriptor;
 
 /**
  * @author ah
- *
+ * 
  */
-public class RandIndex extends AbstractCooccurrenceIndex {
-
+public class JaccardIndex extends AbstractCooccurrenceIndex {
+   
    /**
     * @param p_SameClusterDecider
     * @param p_Nodes
     */
-   public RandIndex(SameClassDecider p_SameClusterDecider, List<TreeNode<ClusterDescriptor>> p_Nodes) {
-      super (p_SameClusterDecider, p_Nodes);
+   public JaccardIndex(SameClassDecider p_SameClusterDecider,
+	   List<TreeNode<ClusterDescriptor>> p_Nodes) {
+	super(p_SameClusterDecider, p_Nodes);
    }
-
+   
    /**
-    * @return Value of Rand index
+    * @return Value of Jaccard index
     */
    public double calculate() {
-      double v_RandIndex = ((double) (a + d)) / ((double) (a + b + c + d));
-      return v_RandIndex;
+	double v_JaccardIndex = ((double) (a)) / ((double) (a + b + c));
+	return v_JaccardIndex;
    }
 
 }
