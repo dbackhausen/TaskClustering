@@ -9,10 +9,20 @@ import java.io.Serializable;
 
 
 
+/**
+ * @author ah
+ *
+ * Abstract base class for classes whose instances shall be serialized to and from file. 
+ *	
+ */
 public abstract class FilePersistanceObject implements Serializable {
 	
 	private static final long serialVersionUID = -7034432844164418804L;
-
+	
+	/**
+	 * @param p_Filename
+	 * @throws IOException
+	 */
 	public void save(String p_Filename) throws IOException {
 		
 		FileOutputStream v_FileOutStream = new FileOutputStream(p_Filename);

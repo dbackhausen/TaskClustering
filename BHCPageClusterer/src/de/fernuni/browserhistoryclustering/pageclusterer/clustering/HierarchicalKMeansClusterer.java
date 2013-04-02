@@ -23,6 +23,10 @@ import de.fernuni.browserhistoryclustering.graph.ClusterDescriptor;
 import de.fernuni.browserhistoryclustering.graph.SetTree;
 import de.fernuni.browserhistoryclustering.util.ClusterUtil;
 
+/**
+ * @author ah
+ *
+ */
 public class HierarchicalKMeansClusterer extends AbstractBaseClusterer implements ClustererIF {
    
    protected static Path s_CanopyCentroids_Lv0;
@@ -48,15 +52,12 @@ public class HierarchicalKMeansClusterer extends AbstractBaseClusterer implement
       
       loadMaps();
       
-      HadoopUtil.delete(s_HadoopConf, new Path(s_PathPrefix, "clusters/"));
-      
       HadoopUtil.delete(s_HadoopConf, new Path(s_PathPrefix, "0/"));
       
       ClusterDescriptor.initialize(s_Filename2Normtopic2Value, s_Filename2Normtopic2Topic,
             s_Filenames2Queries);
 
-      ClusterDescriptor v_RootElem = new ClusterDescriptor("Root", s_Tf_Idf, s_Clusters_Lv0,
-            s_CanopyCentroids_Lv0, null);
+      ClusterDescriptor v_RootElem = new ClusterDescriptor("Root", null);
       v_RootElem.setDocuments(new ArrayList<String>());
       SetTree<ClusterDescriptor> v_Tree = new SetTree<ClusterDescriptor>(v_RootElem);
       
@@ -85,6 +86,11 @@ public class HierarchicalKMeansClusterer extends AbstractBaseClusterer implement
       
       Set<TreeNode<ClusterDescriptor>> v_NodesOfLevel = v_Tree.getNodes(p_Level);
       
+      if (v_NodesOfLevel == null)
+      {
+         return;
+      }
+      
       for (TreeNode<ClusterDescriptor> v_Node : v_NodesOfLevel) {
          
          // Test if cluster cardinality allows further subdivision
@@ -109,8 +115,7 @@ public class HierarchicalKMeansClusterer extends AbstractBaseClusterer implement
          
          for (int v_Key : s_ClusterId2FileList.keySet())
          {
-            ClusterDescriptor v_Elem = new ClusterDescriptor(v_Element.getClusterId()+"/"+v_Key);
-            v_Elem.setDocuments(s_ClusterId2FileList.get(v_Key));
+            ClusterDescriptor v_Elem = new ClusterDescriptor(v_Element.getClusterId()+"/"+v_Key, s_ClusterId2FileList.get(v_Key));            
             v_Node.addElement(v_Elem);
          }
          
@@ -138,8 +143,7 @@ public class HierarchicalKMeansClusterer extends AbstractBaseClusterer implement
       
       for (int v_Key : s_ClusterId2FileList.keySet())
       {
-         ClusterDescriptor v_Elem = new ClusterDescriptor("0/"+v_Key);
-         v_Elem.setDocuments(s_ClusterId2FileList.get(v_Key));
+         ClusterDescriptor v_Elem = new ClusterDescriptor("0/"+v_Key, s_ClusterId2FileList.get(v_Key));         
          v_Result.add(v_Elem);
       }
       return v_Result;

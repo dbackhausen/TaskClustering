@@ -1,26 +1,15 @@
 package de.fernuni.browserhistoryclustering.topicextractor;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-import maui.main.MauiModelBuilder;
-
-import org.wikipedia.miner.model.Wikipedia;
-
+import weka.core.Instance;
 import de.fernuni.browserhistoryclustering.common.config.Config;
 import de.fernuni.browserhistoryclustering.common.utils.CollectionUtils;
 
-import weka.core.Instance;
-
 /**
- * TODO: insert javadoc
+ * Keyphrase extraction using Maui library.
  * 
  * @author ah
  * 
@@ -28,16 +17,17 @@ import weka.core.Instance;
 public class Extractor {
 
    private MauiTopicExtractor topicExtractor;
-   private MauiModelBuilder modelBuilder;
+   //private MauiModelBuilder modelBuilder;
 
-   private final int TOPICSPERDOCUMENT = 10;
+   private final int TOPICSPERDOCUMENT = 7;
 
+   /**
+    * @throws Exception
+    */
    public Extractor() throws Exception {
       Config v_Config = Config.getInstance();
       topicExtractor = new MauiTopicExtractor();
-      modelBuilder = new MauiModelBuilder();
-      setOptions();
-      setFeatures();
+      setOptions();      
 
       // name of the file to save the model
       String modelName = v_Config.getBaseDir() + v_Config.getDataDir()
@@ -48,7 +38,7 @@ public class Extractor {
 
       // Run topic extractor
       topicExtractor.loadModel();
-      topicExtractor.setOptions(new String[] { "-l", ".", "-m", modelName, "-v", "none" });
+      topicExtractor.setOptions(new String[] { "-l", ".", "-m", modelName, "-n", String.valueOf(TOPICSPERDOCUMENT), "-v", "none" });
       topicExtractor.debugMode = true;
    }
 
@@ -64,32 +54,25 @@ public class Extractor {
       topicExtractor.topicsPerDocument = TOPICSPERDOCUMENT;
       topicExtractor.wikipedia = null;
    }
-
-   /**
-    * Set which features to use
-    */
-   private void setFeatures() {
-      modelBuilder.setBasicFeatures(true);
-      modelBuilder.setKeyphrasenessFeature(true);
-      modelBuilder.setFrequencyFeatures(true);
-      modelBuilder.setPositionsFeatures(true);
-      modelBuilder.setLengthFeature(true);
-      modelBuilder.setNodeDegreeFeature(true);
-      modelBuilder.setBasicWikipediaFeatures(false);
-      modelBuilder.setAllWikipediaFeatures(false);
-   }
   
+   
+   /**
+    * @param p_Text Text from which topics are to be extracted
+    * @param p_TextId Text-ID
+    * @param p_Norm2RealMap out param, stores mapping normalized topic -> full topic
+    * @return Mapping normalized topic -> topic analysis value
+    * @throws Exception
+    */
    public Map<String, Double> extractNormalizedKeyphrase(String p_Text, String p_TextId,
          Map<String, String> p_Norm2RealMap) throws Exception {
       Map<String, Double> v_Topic2ValueMap = new HashMap<String, Double>();
      
       ArrayList<Instance> v_Keyphrases = topicExtractor.extractKeyphrases(p_TextId, p_Text);
 
-      int loopCtr = 0;
+      int loopCtr = 1;
       for (Instance v_Keyphrase : v_Keyphrases) {
-         Double v_Value = 1d * (v_Keyphrases.size() - loopCtr);
-         v_Value = 1d;         
-
+         Double v_Value = 1d / loopCtr;
+         
          String v_TopicNormalized = v_Keyphrase.stringValue(0);
 
          String v_Topic = v_Keyphrase.stringValue(topicExtractor.getMauiFilter()
@@ -104,8 +87,7 @@ public class Extractor {
             v_Topic2ValueMap.put(v_TopicNormalized, v_Value);
          }
          loopCtr++;
-         
-         if (loopCtr > 1) break;
+         System.err.println(loopCtr);
       }
 
       v_Topic2ValueMap = CollectionUtils.sortByValue(v_Topic2ValueMap);

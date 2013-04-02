@@ -21,7 +21,9 @@ import de.fernuni.browserhistoryclustering.common.types.Filenames2Queries;
 import de.fernuni.browserhistoryclustering.common.types.HistoryEntry;
 import de.fernuni.browserhistoryclustering.common.types.Queries2Filenames;
 import de.fernuni.browserhistoryclustering.common.utils.FileUtils;
+import de.fernuni.browserhistoryclustering.sqlite.HistoryReader;
 import de.fernuni.browserhistoryclustering.sqlite.HistoryReaderFirefox;
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
 
 /**
  * @author ah
@@ -46,16 +48,17 @@ public class Main {
       int v_UrlCtr = 1;
 
       Crawler v_Crawler = Crawler.getInstance();
+      HistoryReader v_HistoryReader = new HistoryReaderFirefox();
 
-      Set<HistoryEntry> v_HistoryEntries = HistoryReaderFirefox
-            .getHistoryEntriesNet(s_Conf.getBaseDir()
+      Set<HistoryEntry> v_HistoryEntries = v_HistoryReader
+            .getHistoryEntriesWithoutSearches(s_Conf.getBaseDir()
                   + s_Conf.getBrowserHistoryFile());
-
-      Set<HistoryEntry> v_Searches = HistoryReaderFirefox
+      
+      Set<HistoryEntry> v_Searches = v_HistoryReader
             .getGoogleSearches(s_Conf.getBaseDir()
                   + s_Conf.getBrowserHistoryFile());
-
-      Map<HistoryEntry, Set<HistoryEntry>> v_PagesPerSearch = HistoryReaderFirefox
+      
+      Map<HistoryEntry, Set<HistoryEntry>> v_PagesPerSearch = v_HistoryReader
             .getPagesPerSearch(v_Searches,
                   s_Conf.getBaseDir() + s_Conf.getBrowserHistoryFile());
 
@@ -72,7 +75,7 @@ public class Main {
             logger.log(Level.INFO, v_UrlCtr + " / " + v_HistoryEntries.size()
                   + " -- " + v_Entry.getUrl());
             v_Resource = v_Crawler.getWebResource(v_Entry.getUrl(),
-                  v_Entry.getId());
+                  v_Entry.getId(), s_Conf.getMinBoilerpipeResultSize(), s_Conf.getIncludeTitle());
 
             if (v_Resource.getBody() != null
                   && "en".equals(v_Resource.getLanguage())) {
@@ -88,37 +91,25 @@ public class Main {
 
          } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
-            logger.log(Level.SEVERE, e.getMessage());
+            logger.log(Level.SEVERE, v_Entry.getId() + ": " + e.getMessage());
          } catch (IOException e) {
             // TODO Auto-generated catch block
-            logger.log(Level.SEVERE, e.getMessage());
-         } finally {
+            logger.log(Level.SEVERE, v_Entry.getId() + ": " +  e.getMessage());
+         } catch (BoilerpipeProcessingException e) {
+      	// TODO Auto-generated catch block
+            logger.log(Level.SEVERE, v_Entry.getId() + ": " +  e.getMessage());
+         }
+         
+         
+         finally {
             v_UrlCtr++;
          }
-      }
+      }      
    }
 
    private static void initialize() throws InvalidFileFormatException,
          IOException {
       s_Conf = Config.getInstance();
-      /*
-       * Preferences v_Prefs = new IniPreferences(new Ini(new
-       * File("../config.ini"))); Preferences v_FilePrefs =
-       * v_Prefs.node("filesystem"); s_BrowserHistoryFile =
-       * v_FilePrefs.get("history", StringDefaults.BROWSERHISTORY_FILENAME);
-       * s_Filename2QueriesFile = v_FilePrefs.get("filename2qeries",
-       * StringDefaults.FILENAME_FILENAME2QUERIES); s_DataDir =
-       * v_FilePrefs.get("datadir", StringDefaults.DATA_DIR); s_BaseDir =
-       * v_FilePrefs.get("basedir", StringDefaults.BASE_DIR); s_HtmlDir =
-       * v_FilePrefs.get("htmldir", StringDefaults.HTML_DIR); s_TextDir =
-       * v_FilePrefs.get("textdir", StringDefaults.TEXT_DIR); s_HtmlPath =
-       * s_BaseDir + s_DataDir + s_HtmlDir; s_TextPath = s_BaseDir + s_DataDir +
-       * s_TextDir;
-       * 
-       * FileUtils.createDirIfNotExists(s_BaseDir + s_DataDir);
-       * FileUtils.createDirIfNotExists(s_HtmlPath);
-       * FileUtils.createDirIfNotExists(s_TextPath);
-       */
    }
 
 }

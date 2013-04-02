@@ -1,4 +1,4 @@
-package de.fernuni.browserhistoryclustering.pageclusterer.evaluation;
+package de.fernuni.browserhistoryclustering.evaluation;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,18 +11,32 @@ import de.fernuni.browserhistoryclustering.common.utils.CollectionUtils;
 import de.fernuni.browserhistoryclustering.exception.EvaluationException;
 import de.fernuni.browserhistoryclustering.graph.ClusterDescriptor;
 
-public class Recall {
+/**
+ * @author ah
+ *
+ * For computation of recall value for a single cluster.
+ */
+public class RecallSingle {
 
    ClassMapper m_ClassMapper;
 
    @SuppressWarnings("unused")
-   private Recall() {
+   private RecallSingle() {
    }
 
-   public Recall(ClassMapper p_ClassMapper) {
+   /**
+    * @param p_ClassMapper
+    */
+   public RecallSingle(ClassMapper p_ClassMapper) {
       m_ClassMapper = p_ClassMapper;
    }
 
+   /**
+    * @param p_Files All files
+    * @param p_ClusterDescriptor
+    * @return Recall value of cluster
+    * @throws EvaluationException
+    */
    public double calculate(List<String> p_Files,
          ClusterDescriptor p_ClusterDescriptor) throws EvaluationException {
 

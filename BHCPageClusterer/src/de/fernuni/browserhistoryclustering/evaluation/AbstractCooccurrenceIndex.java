@@ -18,11 +18,12 @@ import de.fernuni.browserhistoryclustering.graph.ClusterDescriptor;
  */
 public abstract class AbstractCooccurrenceIndex {
 
-   protected SameClassDecider m_SameClusterDecider;
-   protected int a = 0;
-   protected int b = 0;
-   protected int c = 0;
-   protected int d = 0;
+   protected SameClassDecider m_SameClusterDecider;  
+   
+   protected int m_TruePositives = 0;
+   protected int m_FalseNegatives = 0;   
+   protected int m_FalsePositives = 0;   
+   protected int m_TrueNegatives = 0;
    
    /**
     * @param p_SameClusterDecider 
@@ -49,16 +50,16 @@ public abstract class AbstractCooccurrenceIndex {
 		      v_AllFiles.get(j))) {
 		   if (v_File2ClusterId.get(v_AllFiles.get(i)).equals(
 			   v_File2ClusterId.get(v_AllFiles.get(j)))) {
-			a++;
+			m_TruePositives++;
 		   } else {
-			b++;
+			m_FalseNegatives++;
 		   }
 		} else {
 		   if (v_File2ClusterId.get(v_AllFiles.get(i)).equals(
 			   v_File2ClusterId.get(v_AllFiles.get(j)))) {
-			c++;
+			m_FalsePositives++;
 		   } else {
-			d++;
+			m_TrueNegatives++;
 		   }
 		}
 	   }

@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * @author ah
+ * 
+ * Holde helper methods for file handling
  *
  */
 public class FileUtils {

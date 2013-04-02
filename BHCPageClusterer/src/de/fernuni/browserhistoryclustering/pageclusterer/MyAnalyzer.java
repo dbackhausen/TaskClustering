@@ -16,12 +16,21 @@ import org.apache.lucene.analysis.LowerCaseFilter;
 import org.apache.lucene.analysis.StopFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.WhitespaceTokenizer;
+import org.apache.lucene.analysis.snowball.SnowballFilter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.standard.StandardFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.TermAttribute;
 import org.apache.lucene.util.Version;
 
+/**
+ * @author ah
+ *
+ * Default Analyzer for tokenization.
+ * 
+ * Based on original work of Ted Dunning 
+ * (Mahout in Action).
+ */
 public class MyAnalyzer extends Analyzer {
   
   private final Pattern alphabets = Pattern.compile("[a-z]+");
@@ -32,7 +41,7 @@ public class MyAnalyzer extends Analyzer {
     result = new StandardFilter(result);
     result = new LowerCaseFilter(result);    
     result = new StopFilter(true, result, StandardAnalyzer.STOP_WORDS_SET);
-    //result = new SnowballFilter(result, "English");
+    result = new SnowballFilter(result, "English");
     
     TermAttribute termAtt = (TermAttribute) result.addAttribute(TermAttribute.class);
     StringBuilder buf = new StringBuilder();

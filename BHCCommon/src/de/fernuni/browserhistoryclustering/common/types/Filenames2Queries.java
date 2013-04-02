@@ -8,12 +8,23 @@ import java.util.Map;
 import java.util.Set;
 
 
+/**
+ * @author ah
+ *
+ * Mapping filenames -> search queries
+ */
 public class Filenames2Queries extends FilePersistanceObject {
 	
 	private static final long serialVersionUID = -7479090752038521417L;
 	
+	/**
+	 * 
+	 */
 	private Map<String, Set<String>> m_Filenames2Queries = new HashMap<String, Set<String>>();
 	
+	/**
+	 * @param p_Queries2Filenames
+	 */
 	public Filenames2Queries(Queries2Filenames p_Queries2Filenames) {
 		
 		Map<String, Set<String>> v_Queries2Filenames = p_Queries2Filenames.get();
@@ -34,11 +45,20 @@ public class Filenames2Queries extends FilePersistanceObject {
 		}
 	}
 	
+	/**
+	 * @param p_Filename
+	 * @return Instance of Filename2Queries mapping
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public static Filenames2Queries load (String p_Filename) throws ClassNotFoundException, IOException
 	{		
 		return (Filenames2Queries) FilePersistanceObject.load(p_Filename);
 	}
 	
+	/**
+	 * @return Mapping Filename -> Search queries
+	 */
 	public Map<String, Set<String>> get() {
 		return m_Filenames2Queries;
 	}

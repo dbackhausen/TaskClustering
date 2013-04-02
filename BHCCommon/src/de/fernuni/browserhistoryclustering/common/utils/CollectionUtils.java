@@ -9,10 +9,16 @@ import java.util.Map;
 
 /**
  * @author ah
+ * 
+ * Holds helper methods for collection handling
  *
  */
 public class CollectionUtils {
 
+   /**
+    * @param map
+    * @return Input map sorted by value
+    */
    public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(
          Map<K, V> map) {
      List<Map.Entry<K, V>> list = new LinkedList<Map.Entry<K, V>>(
@@ -30,6 +36,10 @@ public class CollectionUtils {
      return result;
  }
    
+   /**
+    * @param p_List
+    * @return Input list sorted numerically
+    */
    public static List<String> sortNumerically (List<String> p_List)
    {
       Comparator<String> v_Comparator = new Comparator<String>() {

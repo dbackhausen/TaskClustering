@@ -8,15 +8,20 @@ import java.util.Set;
 
 import de.fernuni.browserhistoryclustering.common.utils.Stringutils;
 
-
-
-
-
+/**
+ * @author ah
+ *
+ * Container for mapping search query -> filenames
+ *
+ */
 public class Queries2Filenames extends FilePersistanceObject {
 	
 	private static final long serialVersionUID = 4568684400141184981L;
 	private Map<String, Set<String>> m_Queries2Filenames = new HashMap<String, Set<String>>();
 
+	/**
+	 * @param p_QueryEntries2PageEntries
+	 */
 	public Queries2Filenames(
          Map<HistoryEntry, Set<HistoryEntry>> p_QueryEntries2PageEntries) {
 	   
@@ -24,6 +29,10 @@ public class Queries2Filenames extends FilePersistanceObject {
       
    }
 	
+	/**
+	 * @param p_QueryEntries2PageEntries
+	 * @param p_Prefix Prefix for filenames
+	 */
 	public Queries2Filenames(
 			Map<HistoryEntry, Set<HistoryEntry>> p_QueryEntries2PageEntries,
 			String p_Prefix) {
@@ -47,6 +56,9 @@ public class Queries2Filenames extends FilePersistanceObject {
 		}
 	}
 
+	/**
+	 * @return Mapping search query -> filenames
+	 */
 	public Map<String, Set<String>> get() {
 		return m_Queries2Filenames;
 	}

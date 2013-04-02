@@ -9,9 +9,19 @@ import javax.xml.bind.annotation.XmlType;
 import com.discoversites.util.collections.tree.TreeNode;
 
 
+/**
+ * @author ah
+ *
+ * @param <T>
+ */
 @XmlType(name="SetTreeNodeFUH")
 public abstract class SetTreeNode<T> extends com.discoversites.util.collections.tree.set.SetTreeNode<T> {
 	
+   private static final long serialVersionUID = 1265072095350159026L;
+
+	/**
+	 * @return Child nodes of node
+	 */
 	@XmlElement
 	public Collection<SetTreeNode<T>> getChildNodes() {
 		Collection<SetTreeNode<T>> v_Children = new HashSet<SetTreeNode<T>>();

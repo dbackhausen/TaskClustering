@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.carrot2.clustering.stc.STCClusteringAlgorithm;
 import org.carrot2.clustering.stc.STCClusteringAlgorithmDescriptor;
-import org.carrot2.clustering.synthetic.ByUrlClusteringAlgorithm;
 import org.carrot2.core.Cluster;
 import org.carrot2.core.Controller;
 import org.carrot2.core.ControllerFactory;
@@ -17,8 +16,16 @@ import org.carrot2.core.Document;
 import org.carrot2.core.ProcessingResult;
 import org.carrot2.core.attribute.CommonAttributesDescriptor;
 
+/**
+ * @author ah
+ *
+ */
 public class QueryClusterer {
 
+   /**
+    * @param p_Queries
+    * @return Suffix tree clustering result of input string set  
+    */
    public static Set<String> clusterQueries(Set<String> p_Queries) {
 
 	Set<String> v_Result = new HashSet<String>();

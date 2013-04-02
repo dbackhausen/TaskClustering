@@ -12,6 +12,11 @@ import de.fernuni.browserhistoryclustering.common.types.Filenames2Queries;
 import de.fernuni.browserhistoryclustering.common.types.Normtopic2Topic;
 import de.fernuni.browserhistoryclustering.common.types.NormtopicValues;
 
+/**
+ * @author ah
+ *
+ * Abstract Base Class for clusterer implementations
+ */
 public class AbstractBaseClusterer{
    
    protected static Config s_Config;   

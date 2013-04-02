@@ -3,6 +3,9 @@ package de.fernuni.browserhistoryclustering.evaluation;
 /**
  * @author ah
  *
+ * Interface for deciding whether two documents 
+ * belong to the same class or not.
+ * 
  */
 public interface SameClassDecider {
 

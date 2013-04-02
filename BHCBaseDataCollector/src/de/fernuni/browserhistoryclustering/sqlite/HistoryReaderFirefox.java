@@ -12,26 +12,21 @@ import java.util.Set;
 
 import de.fernuni.browserhistoryclustering.common.types.HistoryEntry;
 
-public class HistoryReaderFirefox {
+/**
+ * 
+ * History Reader Implementation for Mozilla Browsers
+ * (sqlite history format).
+ * 
+ * @author ah
+ *
+ */
+public class HistoryReaderFirefox implements HistoryReader {
 
-   public static void main(String[] args) throws Exception {
-
-      Class.forName("org.sqlite.JDBC");
-      Connection conn = DriverManager.getConnection("jdbc:sqlite:History");
-      Statement stat = conn.createStatement();
-
-      ResultSet rs = stat
-            .executeQuery("select id, url, title  from urls where id > 0 and url not like '%www.google%'");
-
-      while (rs.next()) {
-         String v_Url = rs.getString("url");
-         String v_Title = rs.getString("title");
-         Integer v_Id = rs.getInt("id");
-         System.out.println(v_Id + "\n");
-      }
-   }
-
-   public static Set<HistoryEntry> getHistoryEntries(String p_HistoryFileLoc)
+   /* (non-Javadoc)
+    * @see de.fernuni.browserhistoryclustering.sqlite.HistoryReader#getHistoryEntries(java.lang.String)
+    */
+   @Override
+   public Set<HistoryEntry> getHistoryEntries(String p_HistoryFileLoc)
          throws Exception {
       Set<HistoryEntry> v_HistoryEntries = new HashSet<HistoryEntry>();
 
@@ -59,7 +54,11 @@ public class HistoryReaderFirefox {
       return v_HistoryEntries;
    }
 
-   public static Set<HistoryEntry> getHistoryEntriesNet(String p_HistoryFileLoc)
+   /* (non-Javadoc)
+    * @see de.fernuni.browserhistoryclustering.sqlite.HistoryReader#getHistoryEntriesWithoutSearches(java.lang.String)
+    */
+   @Override
+   public Set<HistoryEntry> getHistoryEntriesWithoutSearches(String p_HistoryFileLoc)
          throws Exception {
       Set<HistoryEntry> v_HistoryEntries = new HashSet<HistoryEntry>();
 
@@ -128,7 +127,11 @@ public class HistoryReaderFirefox {
       return v_HistoryEntries;
    }
 
-   public static Set<HistoryEntry> getGoogleSearches(String p_HistoryFileLoc)
+   /* (non-Javadoc)
+    * @see de.fernuni.browserhistoryclustering.sqlite.HistoryReader#getGoogleSearches(java.lang.String)
+    */
+   @Override
+   public Set<HistoryEntry> getGoogleSearches(String p_HistoryFileLoc)
          throws Exception {
       Set<HistoryEntry> v_HistoryEntries = new HashSet<HistoryEntry>();
 
@@ -156,17 +159,15 @@ public class HistoryReaderFirefox {
       return v_HistoryEntries;
    }
 
-   public static Map<HistoryEntry, Set<HistoryEntry>> getPagesPerSearch(
+   /* (non-Javadoc)
+    * @see de.fernuni.browserhistoryclustering.sqlite.HistoryReader#getPagesPerSearch(java.util.Set, java.lang.String)
+    */
+   @Override
+   public Map<HistoryEntry, Set<HistoryEntry>> getPagesPerSearch(
          Set<HistoryEntry> p_Searches, String p_HistoryFileLoc)
-         throws Exception {
-      Set<HistoryEntry> v_HistoryEntries = new HashSet<HistoryEntry>();
+         throws Exception {      
       Map<HistoryEntry, Set<HistoryEntry>> v_Result = new HashMap<HistoryEntry, Set<HistoryEntry>>();
-
-      Class.forName("org.sqlite.JDBC");
-      Connection conn = DriverManager.getConnection("jdbc:sqlite:"
-            + p_HistoryFileLoc);
-      Statement stat = conn.createStatement();
-
+     
       for (HistoryEntry v_Search : p_Searches) {
          Set<Long> v_ConsecutivePagesIds = getConsecutivePages(
                Collections.singleton(v_Search.getId()),

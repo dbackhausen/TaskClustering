@@ -1,81 +1,31 @@
 package de.fernuni.browserhistoryclustering.evaluation;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import de.fernuni.browserhistoryclustering.common.utils.CollectionUtils;
-import de.fernuni.browserhistoryclustering.exception.EvaluationException;
+import com.discoversites.util.collections.tree.TreeNode;
+
 import de.fernuni.browserhistoryclustering.graph.ClusterDescriptor;
-
 
 /**
  * @author ah
- * 
- * Class for calculating precision value of a cluster.
- * 
+ *
  */
-public class Precision {
+public class Precision extends AbstractCooccurrenceIndex {
 
-   ClassMapper m_ClassMapper;
-
-   @SuppressWarnings("unused")
-   private Precision() {
+   /**
+    * @param p_SameClusterDecider
+    * @param p_Nodes
+    */
+   public Precision(SameClassDecider p_SameClusterDecider, List<TreeNode<ClusterDescriptor>> p_Nodes) {
+      super (p_SameClusterDecider, p_Nodes);
    }
 
    /**
-    * @param p_ClassMapper
+    * @return Value of Precision
     */
-   public Precision(ClassMapper p_ClassMapper) {
-      m_ClassMapper = p_ClassMapper;
+   public double calculate() {
+      double v_Precision = (double) (m_TruePositives) / (double) (m_TruePositives + m_FalsePositives);
+      return v_Precision;
    }
 
-   /**
-    * Calculates precision value of a cluster,
-    * based on a list of files representing
-    * the document collection.
-    * 
-    * @param p_Files Filenames of all documents in the collection
-    * @param p_ClusterDescriptor
-    * @return Precision value
-    * @throws EvaluationException
-    */
-   public double calculate(List<String> p_Files, ClusterDescriptor p_ClusterDescriptor) throws EvaluationException {
-
-      Map<String, Integer> v_Class2OccCollection = getClassOccurrences(p_Files);
-
-      List<String> v_FilesOfCluster = p_ClusterDescriptor.getDocuments();
-      Map<String, Integer> v_Class2OccCluster = getClassOccurrences(v_FilesOfCluster);
-
-      String v_DominantClass = v_Class2OccCluster.keySet().iterator().next();
-
-      Integer v_NumDocsOfClassInCluster = v_Class2OccCluster.get(v_DominantClass);
-      Integer v_NumDocsOfClassInCollection = v_Class2OccCollection.get(v_DominantClass);
-
-      return (double) v_NumDocsOfClassInCollection / (double) v_NumDocsOfClassInCluster;
-   }
-
-   private Map<String, Integer> getClassOccurrences(List<String> p_Filenames) throws EvaluationException {
-      
-      Map<String, Integer> v_Class2Occ = new HashMap<String, Integer>();
-      List<String> v_MappedClusterFiles = m_ClassMapper.mapToClass(p_Filenames);
-      Set<String> v_Classes = getClasses(p_Filenames);
-      
-      for (String v_Class : v_Classes) {
-         int v_Occurrences = Collections.frequency(v_MappedClusterFiles, v_Class);
-         v_Class2Occ.put(v_Class, v_Occurrences);
-      }
-
-      return CollectionUtils.sortByValue(v_Class2Occ);
-   }
-   
-   private Set<String> getClasses (List<String> p_Filenames) throws EvaluationException
-   {
-      return new HashSet<String>(m_ClassMapper.mapToClass(p_Filenames));
-   }
-   
-   
 }

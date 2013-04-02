@@ -191,10 +191,16 @@ public class MauiTopicExtractor implements OptionHandler {
 	/** Build global dictionaries from the test set. */
 	boolean buildGlobalDictionary = false;
 
+	/**
+	 * @return Debug mode enable state
+	 */
 	public boolean getDebug() {
 		return debugMode;
 	}
 	
+	/**
+	 * @return MauiFilter
+	 */
 	public MauiFilter getMauiFilter() {
 		return mauiFilter;
 	}
@@ -438,6 +444,11 @@ public class MauiTopicExtractor implements OptionHandler {
 		return newVector.elements();
 	}
 
+	/**
+	 * @param st 
+	 * @param sw 
+	 * @param vocabularyDirectory
+	 */
 	public void loadThesaurus(Stemmer st, Stopwords sw,
 			String vocabularyDirectory) {
 		if (vocabulary != null)
@@ -465,7 +476,9 @@ public class MauiTopicExtractor implements OptionHandler {
 
 	/**
 	 * Collects the file names
-	 */
+	 * @return  List of file with .txt extension
+	 * @throws Exception 
+	 */	
 	public HashSet<String> collectStems() throws Exception {
 
 		HashSet<String> stems = new HashSet<String>();
@@ -491,6 +504,8 @@ public class MauiTopicExtractor implements OptionHandler {
 
 	/**
 	 * Builds the model from the files
+	 * @param fileNames 
+	 * @throws Exception 
 	 */
 	public void extractKeyphrases(HashSet<String> fileNames) throws Exception {
 
@@ -687,9 +702,7 @@ public class MauiTopicExtractor implements OptionHandler {
 						printer.println();
 					}
 					if (debugMode) {
-						System.err.println(topRankedInstances[i]);
-						Instance v_Instance = topRankedInstances[i];
-						int v_int = 0;
+						System.err.println(topRankedInstances[i]);						
 					}
 				}
 			}
@@ -774,6 +787,10 @@ public class MauiTopicExtractor implements OptionHandler {
 
 	/**
 	 * Builds the model from the files
+	 * @param p_TextId 
+	 * @param p_Text 
+	 * @return Instances of text
+	 * @throws Exception 
 	 */
 	public ArrayList<Instance> extractKeyphrases(String p_TextId, String p_Text)
 			throws Exception {
@@ -806,22 +823,11 @@ public class MauiTopicExtractor implements OptionHandler {
 
 		System.err.println("-- Extracting keyphrases... ");
 
-		Vector<Double> correctStatistics = new Vector<Double>();
-		Vector<Double> precisionStatistics = new Vector<Double>();
-		Vector<Double> recallStatistics = new Vector<Double>();
-
-		// for (String fileName : fileNames) {
-
 		double[] newInst = new double[3];
 
 		newInst[0] = (double) data.attribute(0).addStringValue(p_TextId);
 		newInst[1] = Instance.missingValue();
 		newInst[2] = Instance.missingValue();
-
-		// File documentTextFile = new File(inputDirectoryName + "/" + fileName
-		// + ".txt");
-		// File documentTopicsFile = new File(inputDirectoryName + "/" +
-		// fileName + ".key");
 
 		String documentText;
 		if (!documentEncoding.equals("default")) {
@@ -856,31 +862,15 @@ public class MauiTopicExtractor implements OptionHandler {
 		if (debugMode) {
 			System.err.println("-- Keyphrases and feature values:");
 		}
-		FileOutputStream out = null;
-		PrintWriter printer = null;
-
-		double numExtracted = 0, numCorrect = 0;
-		wikipedia = mauiFilter.getWikipedia();
-
-		HashMap<Article, Integer> topics = null;
-
-		if (printGraph) {
-			topics = new HashMap<Article, Integer>();
-		}
-
-		int p = 0;
-		String root = "";
+		
+		
 		for (int i = 0; i < topicsPerDocument; i++) {
 
 			if (debugMode) {
-				System.err.println(topRankedInstances[i]);
-				Instance v_Instance = topRankedInstances[i];
-				int v_int = 0;
+				System.err.println(topRankedInstances[i]);				
 			}
-
 			mauiFilter.batchFinished();
-		}
-		
+		}		
 		return v_Instances;
 	}
 
@@ -967,6 +957,7 @@ public class MauiTopicExtractor implements OptionHandler {
 
 	/**
 	 * Loads the extraction model from the file.
+	 * @throws Exception 
 	 */
 	public void loadModel() throws Exception {
 
@@ -988,6 +979,7 @@ public class MauiTopicExtractor implements OptionHandler {
 
 	/**
 	 * The main method.
+	 * @param ops 
 	 */
 	public static void main(String[] ops) {
 

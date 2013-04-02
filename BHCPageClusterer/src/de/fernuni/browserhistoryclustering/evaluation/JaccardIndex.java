@@ -25,7 +25,7 @@ public class JaccardIndex extends AbstractCooccurrenceIndex {
     * @return Value of Jaccard index
     */
    public double calculate() {
-	double v_JaccardIndex = ((double) (a)) / ((double) (a + b + c));
+	double v_JaccardIndex = ((double) (m_TruePositives)) / ((double) (m_TruePositives + m_FalseNegatives + m_FalsePositives));
 	return v_JaccardIndex;
    }
 
